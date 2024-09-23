@@ -1,0 +1,322 @@
+{
+	"id": "98fc4112-88e5-4535-9866-b0494dc0e885",
+	"name": "DemoShopping",
+	"timestamp": "2024-09-23T21:33:21.025Z",
+	"collection_id": "17292797-09165c1d-811d-4612-a047-964ee2f53d4a",
+	"folder_id": 0,
+	"environment_id": "17292797-a6206bb6-7535-42e7-9a26-3a2d44ee2736",
+	"totalPass": 19,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-09-23T21:33:20.297Z",
+	"totalFail": 7,
+	"results": [
+		{
+			"id": "db9c8ec6-e5cb-447f-8116-c9713cbc922d",
+			"name": "The list of all products (200 status code)",
+			"url": "https://qa.demoshopping.ru/products",
+			"time": 118,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Status code is 400": false,
+				"Response time is less than 200ms": true,
+				"Response time is less than 2000ms": true,
+				"Verify that all values are correct": true,
+				"Verify that 'product_id' contains numbers": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 2000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that all values are correct": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that 'product_id' contains numbers": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				118
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Status code is 400": false,
+					"Response time is less than 200ms": true,
+					"Response time is less than 2000ms": true,
+					"Verify that all values are correct": true,
+					"Verify that 'product_id' contains numbers": true
+				}
+			]
+		},
+		{
+			"id": "172f299f-7fd4-4ff1-9ed0-d329384b1938",
+			"name": "Adding a new product (200 status code)",
+			"url": "https://qa.demoshopping.ru/add-product",
+			"time": 121,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Status code is 400": false,
+				"Response time is less than 200ms": true,
+				"Response time is less than 2000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 2000ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				121
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Status code is 400": false,
+					"Response time is less than 200ms": true,
+					"Response time is less than 2000ms": true
+				}
+			]
+		},
+		{
+			"id": "045621db-fa85-420e-8151-6b021c4bd5fc",
+			"name": "Search for a product by ID (200 status code)",
+			"url": "https://qa.demoshopping.ru/products/id/2315",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Status code is 400": false,
+				"Response time is less than 200ms": true,
+				"Response time is less than 2000ms": true,
+				"Verify that all values are correct": true,
+				"Verify that product_id contains numbers": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 2000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that all values are correct": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that product_id contains numbers": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Status code is 400": false,
+					"Response time is less than 200ms": true,
+					"Response time is less than 2000ms": true,
+					"Verify that all values are correct": true,
+					"Verify that product_id contains numbers": true
+				}
+			]
+		},
+		{
+			"id": "d4bfebe2-dc33-497d-bc19-1fb507c75b61",
+			"name": "Deleting a product by ID (200 status code)",
+			"url": "https://qa.demoshopping.ru/products/id/2440",
+			"time": 11,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Status code is 400": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Status code is 400": false
+				}
+			]
+		},
+		{
+			"id": "43f281d3-866b-4864-95f1-9aa9c27ab459",
+			"name": "Сomplete product update by ID",
+			"url": "https://qa.demoshopping.ru/products/id/2315",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Status code is 400": false,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				42
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Status code is 400": false,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "6a51542b-d19e-4ae9-bd75-06248253b908",
+			"name": "Partial product update by ID (200 status code)",
+			"url": "https://qa.demoshopping.ru/products/id/2315",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Status code is 400": false,
+				"Response time is less than 200ms": true,
+				"Response time is less than 2000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 2000ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Status code is 400": false,
+					"Response time is less than 200ms": true,
+					"Response time is less than 2000ms": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 319,
+	"collection": {
+		"requests": [
+			{
+				"id": "db9c8ec6-e5cb-447f-8116-c9713cbc922d",
+				"method": "GET"
+			},
+			{
+				"id": "172f299f-7fd4-4ff1-9ed0-d329384b1938",
+				"method": "POST"
+			},
+			{
+				"id": "045621db-fa85-420e-8151-6b021c4bd5fc",
+				"method": "GET"
+			},
+			{
+				"id": "d4bfebe2-dc33-497d-bc19-1fb507c75b61",
+				"method": "DELETE"
+			},
+			{
+				"id": "43f281d3-866b-4864-95f1-9aa9c27ab459",
+				"method": "PUT"
+			},
+			{
+				"id": "6a51542b-d19e-4ae9-bd75-06248253b908",
+				"method": "PATCH"
+			}
+		]
+	}
+}
