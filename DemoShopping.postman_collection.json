@@ -1,0 +1,4046 @@
+{
+	"info": {
+		"_postman_id": "09165c1d-811d-4612-a047-964ee2f53d4a",
+		"name": "DemoShopping",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17292797",
+		"_collection_link": "https://blue-firefly-861483.postman.co/workspace/a765c651-e461-402d-8011-11341fa0289b/collection/17292797-09165c1d-811d-4612-a047-964ee2f53d4a?action=share&source=collection_link&creator=17292797"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "The list of all products (200 status code)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"}); \r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify that all values are correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    // Проверяем, что каждый объект в массиве (или каждый ключ-значение в объекте) содержит строковое значение для ключа \"name,description,category,manufacturer\"\r",
+									"    _.each(jsonData, function(data) {\r",
+									"        pm.expect(data.name).to.be.a('String');\r",
+									"        pm.expect(data.description).to.be.a('String');\r",
+									"        pm.expect(data.category).to.be.a('String');\r",
+									"        pm.expect(data.manufacturer).to.be.a('String');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify that 'product_id' contains numbers\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    // Проверяем, что каждый объект в массиве (или каждый ключ-значение в объекте) содержит цифровое значение для ключа \"product_id\"\r",
+									"    _.each(jsonData, function(data) {\r",
+									"        pm.expect(data.product_id).to.be.a('Number');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding a new product (200 status code)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Example Product\",\n  \"description\": \"This is an example product.\",\n  \"price\": 100,\n  \"category\": \"Electronics\",\n  \"manufacturer\": \"Example Manufacturer\",\n  \"imageUrl\": \"http://example.com/image.jpg\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/add-product",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"add-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding a new product (random data)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"\tpm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomProductName}}\",\n  \"description\": \"{{$randomProductAdjective}}\",\n  \"price\":{{$randomInt}},\n  \"category\": \"Electronics\",\n  \"manufacturer\": \"Example Manufacturer\",\n  \"imageUrl\": \"{{$randomImageUrl}}\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/add-product",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"add-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding a new product (400 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"description\": \"This is an example product.\",\n  \"price\": 100,\n  \"category\": \"Electronics\",\n  \"manufacturer\": \"Example Manufacturer\",\n  \"imageUrl\": \"http://example.com/image.jpg\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/add-product",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"add-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for a product by ID (200 status code)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"Verify that all values are correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.be.a(\"string\");",
+									"    pm.expect(jsonData.description).to.be.a(\"string\");",
+									"    pm.expect(jsonData.category).to.be.a(\"string\");",
+									"    pm.expect(jsonData.manufacturer).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Verify that product_id contains numbers\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.product_id).to.be.a(\"Number\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": 53,\n  \"name\": \"Example Product\",\n  \"description\": \"This is an example product.\",\n  \"price\": \"100.00\",\n  \"category\": \"Electronics\",\n  \"manufacturer\": \"Example Manufacturer\",\n  \"imageUrl\": \"http://example.com/image.jpg\",\n  \"freeShipping\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/id/{{Product ID correct}}",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID correct}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for a product by ID (404 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/id/{{Product ID incorrect}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID incorrect}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a product by ID (200 status code)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"\tpm.response.to.have.status(400);\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/id/2440",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"2440"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Deleting a product by ID (200 status code)",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/products/id/2314",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"products",
+										"id",
+										"2314"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 09:35:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17-FrFa6DzMVYN6C19JeVgc8+VgJIU\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Товар удалён"
+						}
+					]
+				},
+				{
+					"name": "Deleting a product by ID Copy (404 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/id/{{Product ID incorrect}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID incorrect}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a product by ID Copy (400 status code) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/id/----",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"----"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomplete product update by ID (500 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"price\": 0,\n  \"category\": \"string\",\n  \"manufacturer\": \"string\",\n  \"imageUrl\": \"string\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/id/55",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"id",
+								"55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomplete product update by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"price\": 0,\n  \"category\": \"string\",\n  \"manufacturer\": \"string\",\n  \"imageUrl\": \"string\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/products/id/{{Product ID correct}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID correct}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomplete product update by ID (400 status code)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"price\": 0,\n  \"category\": \"string\",\n  \"manufacturer\": \"string\",\n  \"imageUrl\": \"string\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/products/id/---",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"---"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomplete product update by ID Copy (403 status code)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"price\": 0,\n  \"category\": \"string\",\n  \"manufacturer\": \"string\",\n  \"imageUrl\": \"string\",\n  \"freeShipping\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/products/id/1",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partial product update by ID (200 status code)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"description\": \"string\",\r\n  \"price\": 0,\r\n  \"category\": \"string\",\r\n  \"manufacturer\": \"string\",\r\n  \"imageUrl\": \"string\",\r\n  \"freeShipping\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/id/{{Product ID correct}}",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID correct}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Partial product update by ID",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"string\",\r\n  \"description\": \"string\",\r\n  \"price\": 0,\r\n  \"category\": \"string\",\r\n  \"manufacturer\": \"string\",\r\n  \"imageUrl\": \"string\",\r\n  \"freeShipping\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa.demoshopping.ru/products/id/{{Product ID correct}}",
+									"protocol": "https",
+									"host": [
+										"qa",
+										"demoshopping",
+										"ru"
+									],
+									"path": [
+										"products",
+										"id",
+										"{{Product ID correct}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 19:01:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-Q54Ah1ePIhMbq0N3GKRdoOKmPX8\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Товар частично обновлён"
+						}
+					]
+				},
+				{
+					"name": "Partial product update by ID (404 status code)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"description\": \"string\",\r\n  \"price\": 0,\r\n  \"category\": \"string\",\r\n  \"manufacturer\": \"string\",\r\n  \"imageUrl\": \"string\",\r\n  \"freeShipping\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/products/id/{{Product ID incorrect}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"{{Product ID incorrect}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partial product update by ID (400 status code)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"description\": \"string\",\r\n  \"price\": 0,\r\n  \"category\": \"string\",\r\n  \"manufacturer\": \"string\",\r\n  \"imageUrl\": \"string\",\r\n  \"freeShipping\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/products/id/---",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"id",
+								"---"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products by category (200 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/FindByCategory?category={{Category 2}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"FindByCategory"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "{{Category 2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products by category (404 status code)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/FindByCategory?category=///",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"FindByCategory"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "///"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products by manufacturer (200 status code)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 0,\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"price\": 0,\r\n    \"category\": \"string\",\r\n    \"manufacturer\": \"string\",\r\n    \"imageUrl\": \"string\",\r\n    \"freeShipping\": true\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/FindByManufacturer?manufacturer={{Manufacturer 1}}",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"FindByManufacturer"
+							],
+							"query": [
+								{
+									"key": "manufacturer",
+									"value": "{{Manufacturer 1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products by manufacturer (404 status code)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/FindByManufacturer?manufacturer=///",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"FindByManufacturer"
+							],
+							"query": [
+								{
+									"key": "manufacturer",
+									"value": "///"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products with free shipping (200 status code)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 0,\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"price\": 0,\r\n    \"category\": \"string\",\r\n    \"manufacturer\": \"string\",\r\n    \"imageUrl\": \"string\",\r\n    \"freeShipping\": true\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/FindByShipping?freeShipping={{Free Shipping true}}",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"FindByShipping"
+							],
+							"query": [
+								{
+									"key": "freeShipping",
+									"value": "{{Free Shipping true}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for products with free shipping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/products/FindByShipping?freeShipping={{Free Shipping true}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"products",
+								"FindByShipping"
+							],
+							"query": [
+								{
+									"key": "freeShipping",
+									"value": "{{Free Shipping true}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filtering the list of products (200 status code)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 0,\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"price\": 0,\r\n    \"category\": \"string\",\r\n    \"manufacturer\": \"string\",\r\n    \"imageUrl\": \"string\",\r\n    \"freeShipping\": true\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/products/filter?category=watches&manufacturer=apple&freeShipping=true&minPrice=90&maxPrice=3000",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "watches"
+								},
+								{
+									"key": "manufacturer",
+									"value": "apple"
+								},
+								{
+									"key": "freeShipping",
+									"value": "true"
+								},
+								{
+									"key": "minPrice",
+									"value": "90"
+								},
+								{
+									"key": "maxPrice",
+									"value": "3000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorizaton",
+			"item": [
+				{
+					"name": "Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const myData = pm.response.json();",
+									"",
+									"pm.environment.set('token',myData.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "host",
+								"value": "qa.demoshopping.ru"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"test_1234567899\",\"password\":\"q1234567\"}"
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/login",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Adding an item to the cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productId\": 1071,\r\n  \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/cart",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": 0,\r\n  \"quantity\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:57:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"56-B0IzMp/MhHi5ZP8jS+3h5tuYkmM\""
+								}
+							],
+							"cookie": [],
+							"body": "Ошибка сервера при добавлении товара в корзину"
+						},
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": 1071,\r\n  \"quantity\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:58:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"51-qsiD+BcLt/d0vgeZYPLpWbyqhlE\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Товар добавлен в корзину пользователя с ID: 310"
+						},
+						{
+							"name": "400 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": -,\r\n  \"quantity\": -\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:59:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1096"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>SyntaxError: Unexpected token , in JSON at position 19\n            <br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)\n            <br> &nbsp; &nbsp;at parse (/var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/types/json.js:92:19)\n            <br> &nbsp; &nbsp;at /var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/read.js:128:18\n            <br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:204:9)\n            <br> &nbsp; &nbsp;at invokeCallback (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:238:16)\n            <br> &nbsp; &nbsp;at done (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:227:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.onEnd (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:287:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:513:28)\n            <br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1359:12)\n            <br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:82:21)\n        </pre>\n    </body>\n</html>"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": 2,\r\n  \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:59:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b-EyL6LCT6kiHuc4iRjc/YBmRS+00\""
+								}
+							],
+							"cookie": [],
+							"body": "Недействительный токен"
+						}
+					]
+				},
+				{
+					"name": "Сontent of the cart (200 status code)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/getCart",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"getCart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/getCart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"getCart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:01:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "138"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8a-mf2gg3bZqrJI4pDxvigGHUKoYTo\""
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"cart_item_id\": 6472,\n        \"quantity\": 1,\n        \"product_id\": 1071,\n        \"name\": \"Example Product\",\n        \"price\": \"100.00\",\n        \"imageUrl\": \"http://example.com/image.jpg\"\n    }\n]"
+						},
+						{
+							"name": "200 status code Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/getCart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"getCart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:01:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "138"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8a-mf2gg3bZqrJI4pDxvigGHUKoYTo\""
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"cart_item_id\": 6472,\n        \"quantity\": 1,\n        \"product_id\": 1071,\n        \"name\": \"Example Product\",\n        \"price\": \"100.00\",\n        \"imageUrl\": \"http://example.com/image.jpg\"\n    }\n]"
+						},
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/getCart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"getCart"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:01:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-Uh3Q/A2Msft4DjAhRnLUC2otca8\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Ошибка сервера при получении содержимого корзины\"\n}"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/getCart",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"getCart"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:02:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-EDFg7svLVTsskoTMVnsrDK8kpVw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Токен не предоставлен\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update of the number of items in the cart",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quantity\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/cart/{{cartItemId}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"cart",
+								"{{cartItemId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart/{{cartItemId}}",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"{{cartItemId}}"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:51:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"79-4pD45IP78wIx7JnmlsevSlIAPsQ\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Ошибка сервера при обновлении количества товара в корзине\"\n}"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart/{{cartItemId}}",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"{{cartItemId}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:52:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-EDFg7svLVTsskoTMVnsrDK8kpVw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Токен не предоставлен\"\n}"
+						},
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart/{{cartItemId}}",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"{{cartItemId}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:52:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-2ogj0WMwULAf+8Qbrg7UoW6PvVE\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Товар в корзине не найден\"\n}"
+						},
+						{
+							"name": "400 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": e\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/cart/{{cartItemId}}",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"{{cartItemId}}"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:57:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1096"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>SyntaxError: Unexpected token e in JSON at position 17\n            <br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)\n            <br> &nbsp; &nbsp;at parse (/var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/types/json.js:92:19)\n            <br> &nbsp; &nbsp;at /var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/read.js:128:18\n            <br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:204:9)\n            <br> &nbsp; &nbsp;at invokeCallback (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:238:16)\n            <br> &nbsp; &nbsp;at done (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:227:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.onEnd (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:287:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:513:28)\n            <br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1359:12)\n            <br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:82:21)\n        </pre>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Removing an item from the cart (404 status code)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/cart/1070",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"cart",
+								"1070"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/cart/1070",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"1070"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:57:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7e-MQKSE833VnEkVbByYcYFm/i27wY\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Товар не найден в корзине или у пользователя нет прав на его удаление"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/cart/1070",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"cart",
+										"1070"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 13:58:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b-EyL6LCT6kiHuc4iRjc/YBmRS+00\""
+								}
+							],
+							"cookie": [],
+							"body": "Недействительный токен"
+						}
+					]
+				},
+				{
+					"name": "https://qa.demoshopping.ru/cart/4957",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "host",
+								"value": "qa.demoshopping.ru"
+							},
+							{
+								"key": "connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "content-length",
+								"value": "14"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\""
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEwLCJpYXQiOjE3MjYxNzAyMTcsImV4cCI6MTczNDgxMDIxN30.TmypGRbmvDyzYv60_-jWs3QOThCJggWsaahc32Ay80w"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "origin",
+								"value": "https://qa.demoshopping.ru"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-origin"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "referer",
+								"value": "https://qa.demoshopping.ru/cart"
+							},
+							{
+								"key": "accept-encoding",
+								"value": "gzip, deflate, br, zstd"
+							},
+							{
+								"key": "accept-language",
+								"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+							},
+							{
+								"key": "x-postman-captr",
+								"value": "1365676"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"quantity\":2}"
+						},
+						"url": {
+							"raw": "https://qa.demoshopping.ru/cart/4957",
+							"protocol": "https",
+							"host": [
+								"qa",
+								"demoshopping",
+								"ru"
+							],
+							"path": [
+								"cart",
+								"4957"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Getting the list of orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/user-orders",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"user-orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/user-orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"user-orders"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 09:30:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45-UeOjk8XjJ2ao2+01tFGb4s3PwEY\""
+								}
+							],
+							"cookie": [],
+							"body": "Ошибка сервера при получении заказов."
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/user-orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"user-orders"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 09:32:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28-0wGHr+ez+T3AP9bn2pjfvzIX3c8\""
+								}
+							],
+							"cookie": [],
+							"body": "Токен не предоставлен"
+						},
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/user-orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"user-orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 09:34:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "172"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ac-afCLAVr94gPwsmxEAeCPyLeRmvQ\""
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"order_id\": 1329,\n        \"total\": \"1127.00\",\n        \"items\": [\n            {\n                \"product_id\": 31,\n                \"name\": \"Apple Fit 12\",\n                \"price\": \"1127.00\",\n                \"quantity\": 1,\n                \"freeShipping\": true,\n                \"imageUrl\": \"/images/watches.webp\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Creating an order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/orders",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 11:37:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-lygYZpGrxG0hg4lvMnGvYcQRH1U\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Заказ успешно создан\",\n    \"orderId\": 1904\n}"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 11:39:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28-0wGHr+ez+T3AP9bn2pjfvzIX3c8\""
+								}
+							],
+							"cookie": [],
+							"body": "Токен не предоставлен"
+						},
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/orders",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 11:41:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-y5w7bgxHy8hfczh4gHtYRG+fmGY\""
+								}
+							],
+							"cookie": [],
+							"body": "Ошибка сервера при создании заказа."
+						}
+					]
+				},
+				{
+					"name": "Removing an item from an order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/orders?{{orderID}}=1329&{{productID}}=31",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "{{orderID}}",
+									"value": "1329"
+								},
+								{
+									"key": "{{productID}}",
+									"value": "31"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/orders/1907/products/240",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders",
+										"1907",
+										"products",
+										"240"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 11:47:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot DELETE /orders/1907/products/240</pre>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Changing the quantity of the product in the order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quantity\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/orders/{{orderID}}/products/{{productID}}",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"orders",
+								"{{orderID}}",
+								"products",
+								"{{productID}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "1329",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/orders/12/products/121",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders",
+										"12",
+										"products",
+										"121"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:13:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot PATCH /orders/12/products/121</pre>\n    </body>\n</html>"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/orders/12/products/121",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders",
+										"12",
+										"products",
+										"121"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:26:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-fLQvOpqCpJvvuIUSyLkjmHH0scI\""
+								}
+							],
+							"cookie": [],
+							"body": "Недействительный токен."
+						},
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/orders/{{orderID}}/products/{{productID}}",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"orders",
+										"{{orderID}}",
+										"products",
+										"{{productID}}"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "1329",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:26:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"44-N6jFZGwVf3KDGPw7RM7p4kaw8VE\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Количество товара обновлено в заказе"
+						}
+					]
+				},
+				{
+					"name": "Updating the total order amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quantity\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/update-orders-total",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"update-orders-total"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://qa.demoshopping.ru/update-orders-total",
+									"protocol": "https",
+									"host": [
+										"qa",
+										"demoshopping",
+										"ru"
+									],
+									"path": [
+										"update-orders-total"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:19:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"61-EL0liCehp2x+hvxZUqoExYlExjg\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Общая сумма заказов обновлена\",\n    \"totalSumWithDelivery\": 1627\n}"
+						},
+						{
+							"name": "400 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/update-orders-total",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"update-orders-total"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:20:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1096"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>SyntaxError: Unexpected token } in JSON at position 19\n            <br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)\n            <br> &nbsp; &nbsp;at parse (/var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/types/json.js:92:19)\n            <br> &nbsp; &nbsp;at /var/lib/jenkins/workspace/web-shop/qa/node_modules/body-parser/lib/read.js:128:18\n            <br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:204:9)\n            <br> &nbsp; &nbsp;at invokeCallback (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:238:16)\n            <br> &nbsp; &nbsp;at done (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:227:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.onEnd (/var/lib/jenkins/workspace/web-shop/qa/node_modules/raw-body/index.js:287:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:513:28)\n            <br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1359:12)\n            <br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:82:21)\n        </pre>\n    </body>\n</html>"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/update-orders-total",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"update-orders-total"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:21:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-EDFg7svLVTsskoTMVnsrDK8kpVw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Токен не предоставлен\"\n}"
+						},
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"quantity\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/update-orders-total323",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"update-orders-total323"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:24:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot POST /update-orders-total323</pre>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Getting the order history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}/api/orders-history",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"api",
+								"orders-history"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/api/orders-history",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"api",
+										"orders-history"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:31:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "619"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26b-t2w+6TkK8CWCqkGSmz7fDyDnPzU\""
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"order_id\": 804,\n        \"payment_date\": \"2024-09-05T10:04:10.000Z\",\n        \"delivery_date\": \"2024-09-10T10:04:10.000Z\",\n        \"totalPrice\": \"1127.00\",\n        \"productImage\": \"/images/watches.webp\",\n        \"productName\": \"Apple Fit 12\",\n        \"quantity\": 1\n    },\n    {\n        \"order_id\": 798,\n        \"payment_date\": \"2024-09-05T09:30:17.000Z\",\n        \"delivery_date\": \"2024-09-10T09:30:17.000Z\",\n        \"totalPrice\": \"1413.00\",\n        \"productImage\": \"/images/laptop.webp\",\n        \"productName\": \"Apple Gaming 10\",\n        \"quantity\": 1\n    },\n    {\n        \"order_id\": 798,\n        \"payment_date\": \"2024-09-05T09:30:17.000Z\",\n        \"delivery_date\": \"2024-09-10T09:30:17.000Z\",\n        \"totalPrice\": \"1413.00\",\n        \"productImage\": \"/images/phone.webp\",\n        \"productName\": \"Apple Galaxy 12\",\n        \"quantity\": 1\n    }\n]"
+						},
+						{
+							"name": "500 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/api/orders-history",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"api",
+										"orders-history"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:32:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-4LNBtttjhuxo72sKJeMN3pp7E7Q\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Ошибка сервера\"\n}"
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url}}/api/orders-history",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"api",
+										"orders-history"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:32:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-EDFg7svLVTsskoTMVnsrDK8kpVw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Токен не предоставлен\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Payment of an order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"card_type\": \"VISA\",\r\n  \"card_code\": \"8820354696467284\",\r\n  \"expiry_month\": 12,\r\n  \"expiry_year\": 26,\r\n  \"cvv\": \"123\",\r\n  \"email\": \"user@example.com\",\r\n  \"email_paypal\": \"user@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/pay",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"pay"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_type\": \"VISA\",\r\n  \"card_code\": \"string\",\r\n  \"expiry_month\": 0,\r\n  \"expiry_year\": 0,\r\n  \"cvv\": \"string\",\r\n  \"email\": \"user@example.com\",\r\n  \"email_paypal\": \"user@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/pay",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"pay"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:40:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-LljsMRNMqkBen6TVfpBEiyPYCOE\""
+								}
+							],
+							"cookie": [],
+							"body": "Данные карты неверны."
+						},
+						{
+							"name": "401 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_type\": \"VISA\",\r\n  \"card_code\": \"string\",\r\n  \"expiry_month\": 0,\r\n  \"expiry_year\": 0,\r\n  \"cvv\": \"string\",\r\n  \"email\": \"user@example.com\",\r\n  \"email_paypal\": \"user@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/pay",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"pay"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:41:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-pgfOOesrZONcvfxX6GMQJPWHyGs\""
+								}
+							],
+							"cookie": [],
+							"body": "Требуется авторизация."
+						},
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_type\": \"VISA\",\r\n  \"card_code\": \"string\",\r\n  \"expiry_month\": 0,\r\n  \"expiry_year\": 0,\r\n  \"cvv\": \"string\",\r\n  \"email\": \"user@example.com\",\r\n  \"email_paypal\": \"user@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/payeeee",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"payeeee"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:41:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot POST /payeeee</pre>\n    </body>\n</html>"
+						},
+						{
+							"name": "400 status code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"card_type\": \"VISA\",\r\n  \"card_code\": \"8820354696467284\",\r\n  \"expiry_month\": 12,\r\n  \"expiry_year\": 26,\r\n  \"cvv\": \"123\",\r\n  \"email\": \"user@example.com\",\r\n  \"email_paypal\": \"user@example.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/pay",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"pay"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:47:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-XcI1V6t7355jgACMj1H0Zg4Mlcg\""
+								}
+							],
+							"cookie": [],
+							"body": "Недостаточно средств на карте."
+						}
+					]
+				},
+				{
+					"name": "Updating card/paypal balances",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Url}}/updateBalances",
+							"host": [
+								"{{Url}}"
+							],
+							"path": [
+								"updateBalances"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/updateBalances",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"updateBalances"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:55:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-1CLAilQN/DMAUMCKkvG/MBD08eI\""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "Балансы успешно обновлены."
+						},
+						{
+							"name": "404 status code",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Url}}/updateBalancesddd",
+									"host": [
+										"{{Url}}"
+									],
+									"path": [
+										"updateBalancesddd"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Sep 2024 12:56:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'none'"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>Cannot GET /updateBalancesddd</pre>\n    </body>\n</html>"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Url",
+			"value": "https://qa.demoshopping.ru",
+			"type": "string"
+		}
+	]
+}
