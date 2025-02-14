@@ -4,7 +4,7 @@ I tested the API requests for the online store "Demo-Shopping" using the [Swagge
 
 ## REST API testing
 
-[Postman collection](https://github.com/KseniiaPetrova923/api/blob/main/postman_test_run.json)
+[Postman collection](https://github.com/KseniiaPetrova923/api/blob/main/DemoShopping.postman_collection.json)
 
 [Test cases for Postman](https://github.com/KseniiaPetrova923/api/blob/fa375bbbfdaaf001ed3aee5e01ee9abf2168f160/test%20cases.pdf)
 
